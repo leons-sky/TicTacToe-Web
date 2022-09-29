@@ -104,7 +104,7 @@ class TicTacToe {
     render() {
         let turnElement = document.getElementById("turn")
         turnElement.style.backgroundColor = this.player == "x" ? "#4897d8" : "#00daf1"
-        turnElement.innerHTML = `${this._getPlayer()}'s turn:`
+        turnElement.innerHTML = `<h1>${this._getPlayer()}'s turn:</h1>`
 
         for (let i = 0; i < 9; i++) {
             let shape = this.board[i]
