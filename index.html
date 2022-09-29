@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- https://docs.google.com/document/d/1nMjrVGvbAa9tC2ijF2yjV2XG_YabdBEhktqkMJnJXms/edit -->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>TicTacToe</title>
+		<link rel="icon" type="image/png" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			media="screen"
+			href="./styles/main.css"
+		/>
+	</head>
+	<body>
+		<div class="wave" style="--wave-fill: #161e54; left: 0; top: 0">
+			<svg
+				viewBox="0 0 500 150"
+				preserveAspectRatio="none"
+				style="height: 100%; width: 100%"
+			>
+				<path
+					d="M-0.84,94.25 C177.48,120.89 354.12,92.28 500.27,109.05 L500.27,-0.47 L-0.27,-1.45 Z"
+					style="stroke: none; fill: var(--wave-fill)"
+				></path>
+			</svg>
+		</div>
+		<div class="row-container">
+			<div class="row-child" style="min-width: 34%">
+				<svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+					<text
+						x="30"
+						y="40"
+						style="font: 2em sans-serif; color: black"
+					>
+						TicTacToe
+					</text>
+				</svg>
+				<section>
+					<form>
+						<label class="checkbox-label">
+							<input
+								id="computer"
+								type="checkbox"
+								name="checkbox"
+							/>
+							Play against Computer?
+						</label>
+					</form>
+				</section>
+				<section class="info">
+					<h2 id="turn"></h2>
+				</section>
+			</div>
+			<div class="row-child">
+				<main>
+					<div class="box">
+						<div class="line v" style="margin-left: 33.33%"></div>
+						<div class="line v" style="margin-left: 66.66%"></div>
+						<div class="line h" style="margin-top: 33.33%"></div>
+						<div class="line h" style="margin-top: 66.66%"></div>
+					</div>
+					<div class="box grid">
+						<button id="0"></button>
+						<button id="1"></button>
+						<button id="2"></button>
+						<button id="3"></button>
+						<button id="4"></button>
+						<button id="5"></button>
+						<button id="6"></button>
+						<button id="7"></button>
+						<button id="8"></button>
+					</div>
+				</main>
+			</div>
+			<div class="row-child">
+				<section>
+					<button id="reset" style="margin: 0 auto">
+						Reset board
+					</button>
+				</section>
+				<section id="result"></section>
+			</div>
+		</div>
+		<!-- <footer>
+			<div class="wave" style="--wave-fill: #161e54">
+				<svg
+					viewBox="0 0 500 150"
+					preserveAspectRatio="none"
+					style="height: 100%; width: 100%"
+				>
+					<path
+						d="M-0.27,19.25 C130.07,-34.02 335.50,104.13 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+						style="stroke: none; fill: var(--wave-fill)"
+					></path>
+				</svg>
+			</div>
+		</footer> -->
+		<script src="./index.js"></script>
+	</body>
+</html>
