@@ -32,7 +32,6 @@ function minimax(board, depth, player) {
             choice: space,
             score: minimax(possibleBoard, depth, player == "x" ? "o" : "x").score
         }
-        // console.log(possibleBoard, move)
         moves.push(move)
     }
 
