@@ -1,9 +1,11 @@
+const GIPHY_API_KEY = "GvsWgbN7o067MhkftJaEm20K1BVqiTJd" //no way to hide this, so if you find this, have fun :)
+
 function isWin(board, player) {
     let regex = new RegExp(`^(?:(?:...){0,2}(${player})\\1\\1|.{0,2}(${player})..\\2..\\2|(${player})...\\3...\\3|..(${player}).\\4.\\4)`, "g")
     return regex.test(board)
 }
 
-function isDraw(board) {
+function isFull(board) {
     return !/[1-9]/.test(board)
 }
 
@@ -18,7 +20,7 @@ function minimax(board, depth, player) {
         return {
             score: depth - 10
         }
-    } else if (isDraw(board)) {
+    } else if (isFull(board)) {
         return {
             score: 0
         }
@@ -82,6 +84,13 @@ class TicTacToe {
             element.addEventListener("click", listener, true)
         }
 
+        this._giphyPromiseDraw = giphyRandom(GIPHY_API_KEY, {
+            tag: "cry"
+        })
+        this._giphyPromiseWin = giphyRandom(GIPHY_API_KEY, {
+            tag: "celebrate laughing"
+        })
+
         this.render()
         this.aiPlay()
     }
@@ -94,7 +103,10 @@ class TicTacToe {
     _checkForWin() {
         for (let player of ["x", "o"]) {
             if (isWin(this.board, player)) {
-                return this._getPlayer(player)
+                return {
+                    name: this._getPlayer(player),
+                    shape: player
+                }
             }
         }
 
@@ -127,9 +139,11 @@ class TicTacToe {
 
         this.render()
 
+        let win = this._checkForWin()
         let result = {
-            winner: this._checkForWin(),
-            draw: isDraw(this.board)
+            winner: win?.name,
+            winnerShape: win?.shape,
+            draw: isFull(this.board) && !win
         }
         if (result.winner || result.draw) {
             for (let [i, listener] of this.listeners.entries()) {
@@ -137,13 +151,18 @@ class TicTacToe {
                 element.removeEventListener("click", listener, true)
             }
 
-            let resElement = document.getElementById("result")
-            resElement.classList.add("info")
-            if (result.winner) {
-                resElement.innerHTML = `<h1>${result.winner} wins!!!</h1>`
-            } else {
-                resElement.innerHTML = `<h1>Draw!</h1>`
-            }
+            let resElement = document.getElementById("turn")
+            resElement.style.backgroundColor = result.winner == "Player1" || result.draw ? "#4897d8" : "#00daf1"
+
+            resElement.innerHTML = "<h5>Loading...</h5>"
+            let promise = result.draw ? this._giphyPromiseDraw : this._giphyPromiseWin
+            promise.then(res => {
+                let html = ""
+                let winner = result.winner ? result.winner + " wins!" : "Draw"
+                html += `<h1 style="text-align: center;margin-bottom: 0.5rem;font-size:3rem">${winner}</h1>
+                <img class="gif" src="${res.data.images.original.url}" alt="funny gif" />`
+                resElement.innerHTML = html
+            })
 
             this.resolvePromise(result)
             return
@@ -164,8 +183,7 @@ class TicTacToe {
     }
 
     cleanup() {
-        let resElement = document.getElementById("result")
-        resElement.classList.remove("info")
+        let resElement = document.getElementById("turn")
         resElement.innerHTML = ""
 
         for (let i = 0; i < 9; i++) {
@@ -173,21 +191,48 @@ class TicTacToe {
             element.parentNode.replaceChild(this.cleanElements[i], element)
         }
         this.cleanElements = null
-        this.resolvePromise()
+        this.resolvePromise(null)
     }
 }
 
 let game
 let startingPlayer = "x"
+let points = [0, 0]
+
+const myConfetti = confetti.create(document.getElementById("particles"), {
+    resize: true,
+    useWorker: true
+})
 
 function newGame() {
     if (game) {
         game.cleanup()
     }
     game = new TicTacToe(startingPlayer)
+    game.onFinish().then(result => {
+        if (!result) return;
+        if (result.winnerShape) {
+            let index = result.winnerShape == "x" ? 0 : 1
+            points[index] += 10
+
+            document.getElementById(`${result.winner.toLowerCase()}points`).innerHTML = points[index]
+
+            myConfetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.8 }
+            });
+        }
+    })
 }
 
-document.getElementById("reset").addEventListener("click", event => {
+document.getElementById("resetpoints").addEventListener("click", event => {
+    points = [0, 0]
+    document.getElementById("player1points").innerHTML = "0"
+    document.getElementById("player2points").innerHTML = "0"
+})
+
+document.getElementById("resetboard").addEventListener("click", event => {
     newGame()
 })
 

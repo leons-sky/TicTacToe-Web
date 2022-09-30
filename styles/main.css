@@ -111,9 +111,6 @@ section + section {
 	border-radius: 1rem;
 	background-color: #4897d8;
 	padding: 1rem;
-}
-
-.info h1 h2 h3 h4 h5 h6 p {
 	color: white;
 }
 
@@ -121,12 +118,14 @@ section button {
 	background-color: #774dbb;
 	border: 0;
 	border-radius: 10px;
-	padding: 1rem;
+	padding: 0.5rem;
 	color: white;
 	font-weight: bold;
 	font-size: 1rem;
 	transition: 50ms color ease-out;
 	width: 100%;
+	margin: 0 auto;
+	font-size: 1.5rem;
 }
 
 section button:hover {
@@ -136,6 +135,10 @@ section button:hover {
 section button:active {
 	background-color: #583295;
 	color: rgb(212, 212, 212);
+}
+
+section button + button {
+	margin-top: 1rem;
 }
 
 .checkbox-label {
@@ -205,6 +208,53 @@ input[type="checkbox"]::before {
 input[type="checkbox"]:checked::before {
 	transform: scale(1);
 }
+
+.gif {
+	border-radius: 0.5rem;
+	width: calc(100% - 1rem);
+	height: fit-content;
+	max-height: 30vh;
+	margin-left: 0.5rem;
+}
+
+.points-container {
+	padding: 0.5rem;
+	padding-left: 1rem;
+	background-color: #8d65ce;
+	margin: 0.2rem;
+	border-radius: 1rem;
+	color: white;
+	white-space: nowrap;
+	width: 60%;
+	min-width: 12rem;
+}
+
+.points-container h3 {
+	display: inline-block;
+}
+
+.points {
+	/* display: flexbox; */
+	float: right;
+	text-align: right;
+	color: black;
+	background-color: white;
+	margin-right: 1rem;
+	border-radius: 0.2em;
+	padding: 0 0.5em;
+	min-width: 4em;
+}
+
+#particles {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 5000;
+	pointer-events: none;
+}
+
 /* 
 footer {
 	position: absolute;
