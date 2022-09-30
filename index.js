@@ -58,9 +58,9 @@ function minimax(board, depth, player) {
 }
 
 class TicTacToe {
-    constructor() {
+    constructor(startingPlayer = "x") {
         this.board = "123456789"
-        this.player = "x"
+        this.player = startingPlayer
 
         this.resolvePromise;
         this.promise = new Promise((resolve) => {
@@ -83,6 +83,7 @@ class TicTacToe {
         }
 
         this.render()
+        this.aiPlay()
     }
 
     _getPlayer(player) {
@@ -111,7 +112,7 @@ class TicTacToe {
             if (/[1-9]/.test(shape)) {
                 element.style.backgroundImage = ""
             } else {
-                element.style.backgroundImage = `url(./${shape}.svg)`
+                element.style.backgroundImage = `url(./images/${shape}.svg)`
             }
         }
     }
@@ -148,6 +149,10 @@ class TicTacToe {
             return
         }
 
+        this.aiPlay()
+    }
+
+    aiPlay() {
         if (this.player == "o" && document.getElementById("computer").checked) {
             let move = minimax(this.board, 0, "o")
             this.play(move.choice)
@@ -172,9 +177,27 @@ class TicTacToe {
     }
 }
 
-let game = new TicTacToe()
+let game
+let startingPlayer = "x"
+
+function newGame() {
+    if (game) {
+        game.cleanup()
+    }
+    game = new TicTacToe(startingPlayer)
+}
 
 document.getElementById("reset").addEventListener("click", event => {
-    game.cleanup()
-    game = new TicTacToe();
+    newGame()
 })
+
+document.getElementById("computer").addEventListener("change", event => {
+    newGame()
+})
+
+document.getElementById("player2start").addEventListener("change", event => {
+    startingPlayer = event.currentTarget.checked ? "o" : "x"
+    newGame()
+})
+
+newGame()

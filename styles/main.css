@@ -85,7 +85,6 @@ main {
 
 main button {
 	background-color: transparent;
-	/* background-image: url("../x.svg"); */
 	background-size: cover;
 	background-repeat: no-repeat;
 	border: 0;
@@ -114,13 +113,7 @@ section + section {
 	padding: 1rem;
 }
 
-.info h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+.info h1 h2 h3 h4 h5 h6 p {
 	color: white;
 }
 
@@ -170,9 +163,9 @@ section button:active {
 	}
 }
 
-/* .checkbox-label + .checkbox-label {
-	margin-top: 1em;
-} */
+.checkbox-label + .checkbox-label {
+	margin-top: 0.5em;
+}
 
 input[type="checkbox"] {
 	/* Add if not using autoprefixer */
