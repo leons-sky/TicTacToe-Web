@@ -7,11 +7,19 @@
 
 body {
 	min-height: 100vh;
-	margin-bottom: 2rem;
+	position: relative;
+}
+
+body::after {
+	content: "";
+	display: block;
+	height: 15vh; /* Set same as footer's height */
 }
 
 .row-container {
 	margin: 0 auto;
+	overflow: hidden;
+	width: 100%;
 }
 
 .row-child {
@@ -93,7 +101,8 @@ main button {
 .wave {
 	position: absolute;
 	width: 100%;
-	height: 15vh;
+	height: 100%;
+	max-height: 15vh;
 	overflow: hidden;
 	padding: 0;
 }
@@ -255,10 +264,10 @@ input[type="checkbox"]:checked::before {
 	pointer-events: none;
 }
 
-/* 
 footer {
+	padding-top: 2rem;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	height: 50px;
-} */
+	height: 15vh;
+}
