@@ -264,6 +264,12 @@ input[type="checkbox"]:checked::before {
 	pointer-events: none;
 }
 
+#github {
+	position: absolute;
+	left: 2vh;
+	bottom: -2vh;
+}
+
 footer {
 	padding-top: 2rem;
 	position: absolute;

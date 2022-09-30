@@ -245,4 +245,8 @@ document.getElementById("player2start").addEventListener("change", event => {
     newGame()
 })
 
+document.getElementById("github").addEventListener("click", event => {
+    window.open("https://github.com/leonsemmens-sky/TicTacToe-Web")
+})
+
 newGame()
